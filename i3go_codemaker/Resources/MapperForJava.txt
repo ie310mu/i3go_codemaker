@@ -1,0 +1,144 @@
+package {packageName};
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.UpdateProvider;
+import org.apache.ibatis.annotations.DeleteProvider;
+import org.apache.ibatis.annotations.Param;
+import java.util.*;
+{importList}
+
+{myBatisMapperAnn}
+public interface {entityName}Mapper {baseClass}
+{
+	/**
+	 * 返回对象或null
+	 */
+	@Select("select * from {tableName} where id= #{id}")
+	public {entityName} get({idColDataType} id);	
+
+	/**
+	 * 返回对象或null  注意，需要数据表中有code字段才能正确调用
+	 */
+	@Select("select * from {tableName} where code= #{code}")
+	public {entityName} getByCode(String code);
+
+	/**
+	 * 成功返回1，失败返回0
+	 */
+	@Delete("delete from {tableName} where id= #{id}")
+	public int delete({idColDataType} id);
+	
+	/**
+	 * 根据参数更新数据，返回更新的数据条数 
+	 */
+	@DeleteProvider(type={entityName}SqlProvider.class, method="deleteByParam")
+	public int deleteByParam({entityName}Param param);
+
+	/**
+	 * order:不带order by的排序字符串
+	 */
+	@SelectProvider(type={entityName}SqlProvider.class, method="getTopN")
+	public {entityName}[] getTopN(@Param("n") int n, @Param("order") String order);
+
+	/**
+	 * 
+	 */
+	@Select("select count(*) count from {tableName} ")
+	public int getCount();
+
+	/**
+	 * offset:起始位置，从0计算，第n页就是 (n-1)*pageSize   pageSize:每页的大小
+	 * order:不带order by的排序字符串
+	 */
+	@SelectProvider(type={entityName}SqlProvider.class, method="getPage")
+	public {entityName}[] getPage(@Param("offset") int offset,@Param("rowsInPage") int rowsInPage, @Param("order") String order);
+	
+	/**
+	 * offset:起始位置，从0计算，第n页就是 (n-1)*pageSize   pageSize:每页的大小
+	 * order:不带order by的排序字符串
+	 */
+	@SelectProvider(type={entityName}SqlProvider.class, method="getPage")
+	public List<{entityName}> getList(@Param("offset") int offset,@Param("rowsInPage") int rowsInPage, @Param("order") String order);
+
+	/**
+	 * 尽量使用getCountByParam
+	 * cause:不带where关键字的查询语句，不能带参数，可以为空（为避免sql注入，应尽量少从前端条件组合）
+	 */
+	@SelectProvider(type={entityName}SqlProvider.class, method="getCountByCause")
+	public int getCountByCause(String cause);
+
+	/**
+	 * 尽量使用getPageByParam
+	 * offset:起始位置，从0计算，第n页就是 (n-1)*pageSize   pageSize:每页的大小
+	 * order:不带order by的排序字符串
+	 * cause:不带where关键字的查询语句，不能带参数，可以为空（为避免sql注入，应尽量少从前端条件组合）
+	 */
+	@SelectProvider(type={entityName}SqlProvider.class, method="getPageByCause")
+	public {entityName}[] getPageByCause(@Param("offset") int offset,@Param("rowsInPage") int rowsInPage, @Param("order") String order, @Param("cause") String cause);
+
+	
+	/**
+	 * 尽量使用getPageByParam
+	 * offset:起始位置，从0计算，第n页就是 (n-1)*pageSize   pageSize:每页的大小
+	 * order:不带order by的排序字符串
+	 * cause:不带where关键字的查询语句，不能带参数，可以为空（为避免sql注入，应尽量少从前端条件组合）
+	 */
+	@SelectProvider(type={entityName}SqlProvider.class, method="getPageByCause")
+	public List<{entityName}> getListByCause(@Param("offset") int offset,@Param("rowsInPage") int rowsInPage, @Param("order") String order, @Param("cause") String cause);
+
+	/**
+	 * order:不带order by的排序字符串
+	 * cause:不带where关键字的查询语句，不能带参数，可以为空（为避免sql注入，应尽量少从前端条件组合）
+	 */
+	@SelectProvider(type={entityName}SqlProvider.class, method="findFirst")
+	public {entityName} findFirst(@Param("order") String order, @Param("cause") String cause);
+
+	/**
+	 * 
+	 */
+	@Select("select count(*) count from {tableName} where id=#{id}")
+	public boolean isExists(@Param("id") {idColDataType} id);
+
+	/**
+	 * 
+	 */
+	@SelectProvider(type={entityName}SqlProvider.class, method="getCountByParam")
+	public int getCountByParam({entityName}Param param);
+
+	/**
+	 * 
+	 */
+	@SelectProvider(type={entityName}SqlProvider.class, method="getPageByParam")
+	public {entityName}[] getPageByParam({entityName}Param param);
+	
+	/**
+	 * 
+	 */
+	@SelectProvider(type={entityName}SqlProvider.class, method="getPageByParam")
+	public List<{entityName}> getListByParam({entityName}Param param);
+
+	/**
+	 * 
+	 */
+	@SelectProvider(type={entityName}SqlProvider.class, method="findByParam")
+	public {entityName} findByParam({entityName}Param param);
+
+	/**
+	 * 根据参数更新数据，返回更新的数据条数 
+	 */
+	@UpdateProvider(type={entityName}SqlProvider.class, method="updateByParam")
+	public int updateByParam({entityName}Param param);
+
+{methodWithDynamicField}
+
+
+
+{customContent}
+
+}
+

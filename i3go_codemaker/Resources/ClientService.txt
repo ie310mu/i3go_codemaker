@@ -1,0 +1,120 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using IE310.Framework.Core;
+using IE310.Framework.Core.Util;
+using IE310.Core.DB;
+using IE310.Core.Utils;
+refrenceUsingList
+
+namespace namespaceName
+{
+    public  partial class DatabaseObjectService : SingletonService
+    {
+        public static DatabaseObjectService Current
+        {
+            get
+            {
+                return ClientServiceFactory.GetRemotingService(typeof(DatabaseObjectService)) as DatabaseObjectService;
+			}
+        }
+
+        /// <summary>
+        /// 根据ID获取实例
+        /// </summary>
+        public DatabaseObjectEntity Get(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 保存单个实例
+        /// </summary>
+        public bool Save(DatabaseObjectEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 修改单个实例
+        /// </summary>
+        public int Modify(string id, DatabaseObjectEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 保存或修改单个实例
+        /// </summary>
+        public bool SaveOrUpdate(DatabaseObjectEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 删除单个实例
+        public int Delete(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 删除多个实例
+        /// </summary>
+        public int Delete(DatabaseObjectParams paramObj)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        /// <summary>
+        /// 根据查询参数、分页信息、排序信息，或者实例集合
+        /// </summary>
+        public DatabaseObjectEntity[] Get(DatabaseObjectParams param, I3PageInfo pageInfo, I3OrderParams order)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 查找第一个对象
+        /// </summary>
+        public DatabaseObjectEntity Find(DatabaseObjectParams paramObj, I3OrderParams orderParams)
+        {
+            throw new NotImplementedException();
+        }		
+
+        /// <summary>
+        /// GetDictionary
+        /// </summary>
+        public Dictionary<string, DatabaseObjectEntity> GetDictionary(DatabaseObjectParams param, I3PageInfo pageInfo)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 获取数据条数
+        /// </summary>
+        public int GetCount(DatabaseObjectParams param)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 检查对象是否存在
+        /// </summary>
+        public bool IsExist(string _id)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 提交对实例集合做出的修改，将使用事务+批量更新模式
+        /// (不以DatabaseObjectEntities作为参数，是要将未改变的实例排除)
+        /// </summary>
+        public I3MsgInfo Submit(DatabaseObjectEntity[] adds, DatabaseObjectEntity[] modifies, List<string> deletes)
+        {
+            throw new NotImplementedException();
+        }
+
+    }
+}

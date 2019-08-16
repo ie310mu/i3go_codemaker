@@ -1,0 +1,247 @@
+package {packageName};
+
+import java.io.UnsupportedEncodingException;
+import java.util.UUID;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+import org.apache.log4j.Logger;
+{importList}
+
+public class {entityName}Service extends {jsbc}
+{
+	private static final Logger logger = Logger.getLogger({entityName}Service.class);
+	
+	@Autowired
+	private I{entityName}Service {tableNameEx2}Service;
+	
+	/**
+	 * 自动生成的不带条件的getList
+	 * page从1开始   rows默认20
+	 */
+	@JsonServiceMethodAnnotation(description = "获取列表")
+	@ParameterAnnotation(description = "page：要获取的页码，从1开始<br/>rows：每页行数，默认值40<br/>sort：排序字符串，默认为空<br/>***自动生成的接口，其他参数不明确")
+	public PagingData getList() throws Exception
+	{
+		//准备参数
+		int page = getIntParam("page", 1);
+		int rows = getIntParam("rows", 40);
+		String sort = getStringParam("sort", true, "");
+		{entityName}Param param = new {entityName}Param(page, rows, sort, "");
+
+		//自定义查询参数
+		beforeGetList(param);
+		
+		//开始查询
+		PagingData result = {tableNameEx2}Service.getPageByParam(param);
+
+		afterGetList(result);
+
+		return result;
+	}
+
+	private void beforeGetList({entityName}Param param)  throws Exception
+	{
+{customBeforeGetListContent}
+	}
+
+	private void afterGetList(PagingData result) throws Exception
+	{
+{customAfterGetListContent}
+	}
+	
+	/**
+	 * add
+	 * @return
+	 */
+	@JsonServiceMethodAnnotation(description = "增加数据")
+	@ParameterAnnotation(description = "itemJson：数据对象的json字符串")
+	public String add()  throws Exception
+	{
+		{entityName} item = getItem(true);{setCreateUserIdCode}{setCreateTimeCode}{setUpdateUserIdCode}{setUpdateTimeCode}
+		beforeAdd(item);
+		if (!{tableNameEx2}Service.save(item))
+		{
+			throw new JsonServiceException("保存失败");
+		}
+		afterAdd(item);
+		return item.getId();
+	}
+
+	private void beforeAdd({entityName} item) throws Exception
+	{
+{customBeforeAddContent}
+	}
+
+	private void afterAdd({entityName} item) throws Exception
+	{
+{customAfterAddContent}
+	}
+	
+	/**
+	 * 自动生成的不做数据校验的update
+	 * @return
+	 */
+	@JsonServiceMethodAnnotation(description = "修改数据")
+	@ParameterAnnotation(description = "itemJson：数据对象的json字符串")
+	public boolean update()  throws Exception
+	{
+		{entityName} item = getItem(false);{setUpdateUserIdCode}{setUpdateTimeCode}
+		beforeUpdate(item);
+		boolean result = {tableNameEx2}Service.update(item);
+		afterUpdate(item);
+		return result;
+	}
+
+	private void beforeUpdate({entityName} item) throws Exception
+	{
+{customBeforeUpdateContent}
+	}
+
+	private void afterUpdate({entityName} item) throws Exception
+	{
+{customAfterUpdateContent}
+	}
+	
+	/**
+	 * 自动生成的不做数据校验的updatePart
+	 * @return
+	 */
+	@JsonServiceMethodAnnotation(description = "修改数据")
+	@ParameterAnnotation(description = "itemJson：数据对象的json字符串")
+	public boolean updatePart()  throws Exception
+	{
+		{entityName} item = getItem(false);{setUpdateUserIdCode}{setUpdateTimeCode}
+		beforeUpdatePart(item);
+		boolean result = {tableNameEx2}Service.updatePart(item);
+		afterUpdatePart(item);
+		return result;
+	}
+
+	private void beforeUpdatePart({entityName} item) throws Exception
+	{
+{customBeforeUpdatePartContent}
+	}
+
+	private void afterUpdatePart({entityName} item) throws Exception
+	{
+{customAfterUpdatePartContent}
+	}
+	
+	/**
+	 * 自动生成的不做数据校验的updatePartWithVersion
+	 * @return
+	 */
+	@JsonServiceMethodAnnotation(description = "修改数据")
+	@ParameterAnnotation(description = "itemJson：数据对象的json字符串")
+	public boolean updatePartWithVersion()  throws Exception
+	{
+		{entityName} item = getItem(false);{setUpdateUserIdCode}{setUpdateTimeCode}
+		beforeUpdatePartWithVersion(item);
+		boolean result = {tableNameEx2}Service.updatePartWithVersion(item);
+		afterUpdatePartWithVersion(item);
+		return result;
+	}
+
+	private void beforeUpdatePartWithVersion({entityName} item) throws Exception
+	{
+{customBeforeUpdatePartWithVersionContent}
+	}
+
+	private void afterUpdatePartWithVersion({entityName} item) throws Exception
+	{
+{customAfterUpdatePartWithVersionContent}
+	}
+	
+	/**
+	 * 自动生成的不做数据校验的delete
+	 * @return
+	 */
+	@JsonServiceMethodAnnotation(description = "删除数据")
+	@ParameterAnnotation(description = "id：要删除的数据的id")
+	public boolean delete()  throws Exception
+	{
+		{idColDataType} id = get{idColDataType}Param("id", false);
+		beforeDelete(id);
+		boolean result = {tableNameEx2}Service.delete(id);
+		afterDelete(id);
+		return result;
+	}
+
+	private void beforeDelete({idColDataType} id) throws Exception
+	{
+{customBeforeDeleteContent}
+	}
+
+	private void afterDelete({idColDataType} id) throws Exception
+	{
+{customAfterDeleteContent}
+	}
+	
+	/**
+	 * 自动生成get
+	 * @return
+	 */
+	@JsonServiceMethodAnnotation(description = "根据id获取数据")
+	@ParameterAnnotation(description = "id：要获取的数据的id")
+	public {entityName} get()  throws Exception
+	{
+		{idColDataType} id = get{idColDataType}Param("id", false);
+		{entityName} result = {tableNameEx2}Service.get(id);
+		afterGet(result);
+		return result;
+	}
+
+	private void afterGet({entityName} result) throws Exception
+	{
+{customAfterGetContent}
+	}
+
+	private {entityName} getItem(boolean createId)  throws Exception
+	{
+		String itemJson = getStringParam("itemJson", false);
+		{entityName} item = convertFromJson(itemJson);
+		if(createId)
+		{
+			item.setId(UUID.randomUUID().toString());
+		}
+		
+		afterGetItem(item);
+
+		return item;
+	}
+
+	private void afterGetItem({entityName} item) throws Exception
+	{
+{customAfterGetItemContent}
+	}
+	
+	private {entityName} convertFromJson(String json)  throws Exception
+	{
+		try
+		{
+			java.lang.reflect.Type type = new TypeToken<{entityName}>()
+			{
+			}.getType();
+			{entityName} result = GsonUtil.get().fromJson(json, type);
+			if (result == null)
+			{
+				throw new Exception();
+			}
+			return result;
+		}
+		catch (Exception e)
+		{
+			logger.error(e.getMessage(), e);
+			throw new JsonServiceException("参数错误");
+		}
+	}
+
+
+
+{customContent}
+
+}

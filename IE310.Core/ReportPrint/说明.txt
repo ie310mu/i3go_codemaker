@@ -1,0 +1,5 @@
+1.显示页号、总页数
+   文本设置为：第{pageIndex}页/共{pageCount}页，且单元格不能自动放大，否则影响分页
+2.文本内容扩充
+   换行测试高度，不换行测试宽度
+3.支持单元格点击事件，可分为点击单元格、单元内容  CellItemEventMode  (在I3ReportPreviewerControl上)

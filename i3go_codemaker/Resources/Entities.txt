@@ -1,0 +1,26 @@
+using System;
+using System.Text;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
+using  IE310.Core.Utils;
+using IE310.Core.DB;
+refrenceUsingList
+
+
+namespace namespaceName
+{
+	[Serializable]
+    public partial class DatabaseObjectEntities : I3DataObjectEntities<DatabaseObjectEntity>
+    {
+        public DatabaseObjectEntities()
+            :base()
+        {
+        }
+
+        public DatabaseObjectEntities(DatabaseObjectEntity[] entities)
+            :base(entities)
+        {
+        }
+    }
+}

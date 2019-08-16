@@ -1,0 +1,214 @@
+/*   说明：自动生成的XXXXMapper文件
+
+Exists(tx, id)                根据id判断数据是否存在
+GetByCode(tx, code)  根据code获取，需要有code字段
+
+Get(tx, id)                                                  根据id获取
+GetFirst(tx, whereStr, orderStr, args...)   获取第1条数据
+
+Gets(tx, pageIndex, rowsInPage, whereStr, orderStr, args...) []   获取多条数据、pageIndex从1开始、whereStr、orderStr可以为空，不要where、order by部分
+Getss(tx, pageIndex, rowsInPage, sqlStr, args...)                     []   获取多条数据、需要完整的sql语句、pageIndex从1开始
+
+GetTops(tx, top, whereStr, orderStr, args...)     []   获取前几条数据
+GetTopss(tx, top, sqlStr, args...)                         []   获取前几条数据，需要完整的sql语句
+
+GetCount(tx,whereStr,args...)     获取数量
+GetCountss(tx,sqlStr,args...)       获取数量，需要完整的sql语句
+GetStringss(tx,sqlStr,args...)       获取字符串，需要完整的sql语句
+GetFloatss(tx,sqlStr,args...)      获取数值，需要完整的sql语句
+
+Del(tx,id)                            根据id删除
+Dels(tx,whereStr,args...)   根据sql删除
+Delss(tx,sqlStr,args...)       根据sql删除，需要完整的sql语句
+
+Insert(tx,item)       int,int   插入数据
+Inserts(tx,items)    int,int   插入数据
+
+Update(tx,item)                                        int  更新数据
+Updates(tx,updateStr,whereStr,args...)  int  更新数据
+Updatess(tx,sqlStr,args...)                        int  更新数据、需要完整的sql语句
+
+*/
+
+package mapper
+
+import (
+{importList}
+	"github.com/ie310mu/ie310go/common/obj"
+	"github.com/ie310mu/ie310go/db"
+	"github.com/ie310mu/ie310go/forks/github.com/ilibs/gosql"
+	"github.com/ie310mu/ie310go/forks/github.com/jmoiron/sqlx"
+{customRefrence}
+)
+
+//{entityName}Mapper ..
+type {entityName}Mapper struct {
+	db.BaseMapper
+}
+
+//Get{entityName}Mapper 获取mapper对象
+func Get{entityName}Mapper(db string) {entityName}Mapper {
+	var mp {entityName}Mapper
+	mp.TableName = "{tableName}"
+	if db == "" {
+		db = "default"
+	}
+	mp.DB = gosql.Use(db)
+	return mp
+}
+
+//将interface转换为*model.{entityName}
+func (m {entityName}Mapper) convertItem(v interface{}) *model.{entityName} {
+	if obj.InterfaceIsNil(v) {
+		return nil
+	}
+	return v.(*model.{entityName})
+}
+
+//Get 根据id获取
+func (m {entityName}Mapper) Get(tx *sqlx.Tx, id interface{}) *model.{entityName} {
+	sqlStr := "select * from " + m.TableName + " where id = ? "
+	var args = []interface{}{id}
+
+	item := &model.{entityName}{}
+	r := m.ScanItem(tx, item, sqlStr, args...)
+	return m.convertItem(r)
+}
+
+//Exists 根据id判断数据是否存在
+func (m {entityName}Mapper) Exists(tx *sqlx.Tx, id interface{}) bool {
+	sqlStr := "select count(id) from " + m.TableName + " where id = ? "
+	var args = []interface{}{id}
+	count := m.ScanInt(tx, sqlStr, args...)
+	return count > 0
+}
+
+//GetByCode 根据code获取，需要有code字段
+func (m {entityName}Mapper) GetByCode(tx *sqlx.Tx, code interface{}) *model.{entityName} {
+	sqlStr := "select * from " + m.TableName + " where code = ? "
+	var args = []interface{}{code}
+
+	item := &model.{entityName}{}
+	r := m.ScanItem(tx, item, sqlStr, args...)
+	return m.convertItem(r)
+}
+
+//Gets 获取多条数据、pageIndex从1开始、whereStr、orderStr可以为空，不要where、order by部分
+func (m {entityName}Mapper) Gets(tx *sqlx.Tx, pageIndex int, rowsInPage int, whereStr string, orderStr string, args ...interface{}) []*model.{entityName} {
+	sqlStr := "select * from " + m.TableName
+	if whereStr != "" {
+		sqlStr = sqlStr + " where " + whereStr
+	}
+	if orderStr != "" {
+		sqlStr = sqlStr + " order by " + orderStr
+	}
+
+	return m.Getss(tx, pageIndex, rowsInPage, sqlStr, args...)
+}
+
+//Getss 获取多条数据、需要完整的sql语句、pageIndex从1开始
+func (m {entityName}Mapper) Getss(tx *sqlx.Tx, pageIndex int, rowsInPage int, sqlStr string, args ...interface{}) []*model.{entityName} {
+	items := make([]*model.{entityName}, 0)
+	m.ScanItems(tx, pageIndex, rowsInPage, &items, sqlStr, args...)
+	return items
+}
+
+//GetTops 获取前几条数据
+func (m {entityName}Mapper) GetTops(tx *sqlx.Tx, top int, whereStr string, orderStr string, args ...interface{}) []*model.{entityName} {
+	return m.Gets(tx, 1, top, whereStr, orderStr, args...)
+}
+
+//GetTopss 获取前几条数据，需要完整的sql语句
+func (m {entityName}Mapper) GetTopss(tx *sqlx.Tx, top int, sqlStr string, args ...interface{}) []*model.{entityName} {
+	return m.Getss(tx, 1, top, sqlStr, args...)
+}
+
+//GetFirst 获取第1条数据
+func (m {entityName}Mapper) GetFirst(tx *sqlx.Tx, whereStr string, orderStr string, args ...interface{}) *model.{entityName} {
+	items := m.GetTops(tx, 1, whereStr, orderStr, args...)
+	if len(items) == 0 {
+		return nil
+	}
+	return items[0]
+}
+
+//GetCount 获取数量
+func (m {entityName}Mapper) GetCount(tx *sqlx.Tx, whereStr string, args ...interface{}) int {
+	sqlStr := "select count(*) from " + m.TableName
+	if whereStr != "" {
+		sqlStr = sqlStr + " where " + whereStr
+	}
+
+	count := m.ScanInt(tx, sqlStr, args...)
+	return count
+}
+
+//GetCountss 获取数量，需要完整的sql语句
+func (m {entityName}Mapper) GetCountss(tx *sqlx.Tx, sqlStr string, args ...interface{}) int {
+	count := m.ScanInt(tx, sqlStr, args...)
+	return count
+}
+
+//GetStringss 获取字符串，需要完整的sql语句
+func (m {entityName}Mapper) GetStringss(tx *sqlx.Tx, sqlStr string, args ...interface{}) string {
+	str := m.ScanString(tx, sqlStr, args...)
+	return str
+}
+
+//GetFloatss 获取数值，需要完整的sql语句
+func (m {entityName}Mapper) GetFloatss(tx *sqlx.Tx, sqlStr string, args ...interface{}) float64 {
+	v := m.ScanFloat(tx, sqlStr, args...)
+	return v
+}
+
+//Del 根据id删除
+func (m {entityName}Mapper) Del(tx *sqlx.Tx, id interface{}) int {
+	sqlStr := "delete from " + m.TableName + " where id = ? "
+	var args = []interface{}{id}
+	return m.DeleteOrUpdateItems(tx, sqlStr, args...)
+}
+
+//Dels 根据sql删除
+//whereStr可以为空，不要where部分
+func (m {entityName}Mapper) Dels(tx *sqlx.Tx, whereStr string, args ...interface{}) int {
+	sqlStr := "delete from " + m.TableName
+	if whereStr != "" {
+		sqlStr = sqlStr + " where " + whereStr
+	}
+
+	return m.DeleteOrUpdateItems(tx, sqlStr, args...)
+}
+
+//Delss 根据sql删除，需要完整的sql语句
+func (m {entityName}Mapper) Delss(tx *sqlx.Tx, sqlStr string, args ...interface{}) int {
+	return m.DeleteOrUpdateItems(tx, sqlStr, args...)
+}
+
+//Inserts 插入数据
+func (m {entityName}Mapper) Inserts(tx *sqlx.Tx, items []*model.{entityName}) int {
+	var total int
+	for _, item := range items {
+		_, count := m.Insert(tx, item)
+		total = total + count
+	}
+	return total
+}
+
+//Updates 更新数据
+func (m {entityName}Mapper) Updates(tx *sqlx.Tx, updateStr string, whereStr string, args ...interface{}) int {
+	sqlStr := " update " + m.TableName + " set " + updateStr
+	if whereStr != "" {
+		sqlStr = sqlStr + " where " + whereStr
+	}
+	count := m.DeleteOrUpdateItems(tx, sqlStr, args...)
+	return count
+}
+
+//Updatess 更新数据、需要完整的sql语句
+func (m {entityName}Mapper) Updatess(tx *sqlx.Tx, sqlStr string, args ...interface{}) int {
+	count := m.DeleteOrUpdateItems(tx, sqlStr, args...)
+	return count
+}
+
+{methodWithDynamicField}
+{customContent}

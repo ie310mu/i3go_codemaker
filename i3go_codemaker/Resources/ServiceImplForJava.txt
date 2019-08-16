@@ -1,0 +1,293 @@
+package {packageName};
+
+import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
+import org.apache.log4j.Logger;
+{importList}
+
+public class {entityName}ServiceImpl extends BaseService implements I{entityName}Service
+{
+	private static final Logger logger = Logger.getLogger({entityName}ServiceImpl.class);
+	
+	public {entityName} get({idColDataType} id)  throws Exception
+	{
+		{entityName}Mapper mapper = this.getReadonlyMapper({entityName}Mapper.class);
+		{entityName} item = mapper.get(id);
+		afterGet(item);
+		return item;
+	}
+
+	private void afterGet({entityName} item) throws Exception
+	{
+{customAfterGetContent}
+	}
+	
+	public {entityName} getByCode(String code) throws Exception
+	{
+		{entityName}Mapper mapper = this.getReadonlyMapper({entityName}Mapper.class);
+		{entityName} item = mapper.getByCode(code);
+		afterGet(item);
+		return item;
+	}
+	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public boolean delete({idColDataType} id) throws Exception
+	{
+		beforeDelete(id);
+		{entityName}Mapper mapper = this.getWritableMapper({entityName}Mapper.class);
+		boolean result = mapper.delete(id) == 1;
+		afterDelete(id);
+		return result;
+	}
+
+	private void beforeDelete({idColDataType} id) throws Exception
+	{
+{customBeforeDeleteContent}
+	}
+
+	private void afterDelete({idColDataType} id) throws Exception
+	{
+{customAfterDeleteContent}
+	}
+	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public boolean deleteByParam({entityName}Param param) throws Exception
+	{
+		beforeDeleteByParam(param);
+		{entityName}Mapper mapper = this.getWritableMapper({entityName}Mapper.class);
+		boolean result = mapper.deleteByParam(param) == 1;
+		afterDeleteByParam(param);
+		return result;
+	}
+
+	private void beforeDeleteByParam({entityName}Param param) throws Exception
+	{
+{customBeforeDeleteByParamContent}
+	}
+
+	private void afterDeleteByParam({entityName}Param param) throws Exception
+	{
+{customAfterDeleteByParamContent}
+	}
+	
+	public {entityName}[] getTopN(int n, String order) throws Exception
+	{
+		{entityName}Mapper mapper = this.getReadonlyMapper({entityName}Mapper.class);
+		{entityName}[] items = mapper.getTopN(n, order);
+		afterGetArr(items);
+		return items;
+	}
+
+	private void afterGetArr({entityName}[] items) throws Exception
+	{
+{customAfterGetArrContent}
+	}
+	
+	public int getCount() throws Exception
+	{
+		{entityName}Mapper mapper = this.getReadonlyMapper({entityName}Mapper.class);
+		return mapper.getCount();
+	}
+	
+	public PagingData getPage(int pageIndex, int rowsInPage, String order) throws Exception
+	{
+		int offset = (pageIndex - 1) * rowsInPage;
+		{entityName}Mapper mapper = this.getReadonlyMapper({entityName}Mapper.class);
+		int count = mapper.getCount();
+		double pageCountD = ((double) count) / ((double) rowsInPage);
+		int pageCount = (int) Math.ceil(pageCountD);
+		{entityName}[] arr = mapper.getPage(offset, rowsInPage, order);		
+		afterGetArr(arr);
+		PagingData pagingData = new PagingData(pageIndex, rowsInPage, pageCount, count, arr);
+		return pagingData;
+	}
+	
+	public int getCountByCause(String cause) throws Exception
+	{
+		{entityName}Mapper mapper = this.getReadonlyMapper({entityName}Mapper.class);
+		return mapper.getCountByCause(cause);
+	}
+	
+	public PagingData getPageByCause(int pageIndex, int rowsInPage, String order, String cause) throws Exception
+	{
+		int offset = (pageIndex - 1) * rowsInPage;
+		{entityName}Mapper mapper = this.getReadonlyMapper({entityName}Mapper.class);
+		int count = mapper.getCountByCause(cause);
+		double pageCountD = ((double) count) / ((double) rowsInPage);
+		int pageCount = (int) Math.ceil(pageCountD);
+		{entityName}[] arr = mapper.getPageByCause(offset, rowsInPage, order, cause);	
+		afterGetArr(arr);
+		PagingData pagingData = new PagingData(pageIndex, rowsInPage, pageCount, count, arr);
+		return pagingData;
+	}
+	
+	public {entityName} findFirst(String order, String cause) throws Exception
+	{
+		{entityName}Mapper mapper = this.getReadonlyMapper({entityName}Mapper.class);
+		{entityName} item = mapper.findFirst(order, cause);
+		afterGet(item);
+		return item;
+	}
+	
+	public boolean isExists({idColDataType} id) throws Exception
+	{
+		{entityName}Mapper mapper = this.getReadonlyMapper({entityName}Mapper.class);
+		return mapper.isExists(id);
+	}
+	
+	public int getCountByParam({entityName}Param param) throws Exception
+	{
+		{entityName}Mapper mapper = this.getReadonlyMapper({entityName}Mapper.class);
+		return mapper.getCountByParam(param);
+	}
+	
+	public PagingData getPageByParam({entityName}Param param) throws Exception
+	{
+		{entityName}Mapper mapper = this.getReadonlyMapper({entityName}Mapper.class);
+		int count = mapper.getCountByParam(param);
+		double pageCountD = ((double) count) / ((double) param.getRowsInPage());
+		int pageCount = (int) Math.ceil(pageCountD);
+		//{entityName}[] arr = mapper.getPageByParam(param);
+		List<{entityName}> list = mapper.getListByParam(param);
+		{entityName}[] arr = list.toArray(new {entityName}[list.size()]);
+		afterGetArr(arr);
+		PagingData pagingData = new PagingData(param.getPageIndex(), param.getRowsInPage(), pageCount, count, arr);
+		return pagingData;
+	}
+	
+	public {entityName} findByParam({entityName}Param param) throws Exception
+	{
+		{entityName}Mapper mapper = this.getReadonlyMapper({entityName}Mapper.class);
+		{entityName} item = mapper.findByParam(param);
+		afterGet(item);
+		return item;
+	}
+	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public int updateByParam({entityName}Param param) throws Exception
+	{
+		beforeUpdateByParam(param);
+		{entityName}Mapper mapper = this.getWritableMapper({entityName}Mapper.class);
+		int result = mapper.updateByParam(param);
+		afterUpdateByParam(param);
+		return result;
+	}
+
+	private void beforeUpdateByParam({entityName}Param param) throws Exception
+	{
+{customBeforeUpdateByParamContent}
+	}
+
+	private void afterUpdateByParam({entityName}Param param) throws Exception
+	{
+{customAfterUpdateByParamContent}
+	}
+	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public boolean save({entityName} item) throws Exception
+	{{setPinyCode}{setPiny2Code}{setPasswordCode}
+		beforeSave(item);
+		{entityName}Mapper mapper = this.getWritableMapper({entityName}Mapper.class);
+		boolean result = mapper.save(item) == 1;
+		afterSave(item);
+		return result;
+	}
+
+	private void beforeSave({entityName} item) throws Exception
+	{
+{customBeforeSaveContent}
+	}
+
+	private void afterSave({entityName} item) throws Exception
+	{
+{customAfterSaveContent}
+	}
+	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public boolean update({entityName} item) throws Exception
+	{{setPinyCode}{setPiny2Code}{setPasswordCode}
+		beforeUpdate(item);
+		{entityName}Mapper mapper = this.getWritableMapper({entityName}Mapper.class);
+		boolean result = mapper.update(item) == 1;
+		afterUpdate(item);
+		return result;
+	}
+
+	private void beforeUpdate({entityName} item) throws Exception
+	{
+{customBeforeUpdateContent}
+	}
+
+	private void afterUpdate({entityName} item) throws Exception
+	{
+{customAfterUpdateContent}
+	}
+	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public boolean updatePart({entityName} item) throws Exception
+	{
+		{entityName}Mapper mapper = this.getWritableMapper({entityName}Mapper.class);
+		{entityName} oldItem = mapper.get(item.getId());
+		if(oldItem == null)
+		{
+			throw new BusinessException("对象不存在，无法更新");
+		}
+{copyCodeDescription}{copyMobileCode}{copyNameCode}{copyPinyCode}{copyPiny2Code}{copyCodeCode}{copySortCode}{copyDescriptionCode}{copyPasswordCode}{copyUpdateUserIdCode}{copyUpdateTimeCode}
+		beforeUpdatePart(item, oldItem);
+		boolean result = mapper.update(oldItem) == 1;
+		afterUpdate(oldItem);
+		return result;
+	}
+
+	private void beforeUpdatePart({entityName} item, {entityName} oldItem) throws Exception
+	{
+{customBeforeUpdatePartContent}
+	}
+	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public boolean updateWithVersion({entityName} item) throws Exception
+	{{setPinyCode}{setPiny2Code}{setPasswordCode}
+		beforeUpdateWithVersion(item);
+		{entityName}Mapper mapper = this.getWritableMapper({entityName}Mapper.class);
+		boolean result = mapper.updateWithVersion(item) == 1;
+		afterUpdateWithVersion(item);
+		return result;
+	}
+
+	private void beforeUpdateWithVersion({entityName} item) throws Exception
+	{
+{customBeforeUpdateWithVersionContent}
+	}
+
+	private void afterUpdateWithVersion({entityName} item) throws Exception
+	{
+{customAfterUpdateWithVersionContent}
+	}
+	
+	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public boolean updatePartWithVersion({entityName} item) throws Exception
+	{
+		{entityName}Mapper mapper = this.getWritableMapper({entityName}Mapper.class);
+		{entityName} oldItem = mapper.get(item.getId());
+		if(oldItem == null)
+		{
+			throw new BusinessException("对象不存在，无法更新");
+		}
+{copyCodeDescription}{copyMobileCode}{copyNameCode}{copyPinyCode}{copyPiny2Code}{copyCodeCode}{copySortCode}{copyDescriptionCode}{copyPasswordCode}{copyUpdateUserIdCode}{copyUpdateTimeCode}
+		beforeUpdatePartWithVersion(item, oldItem);
+		boolean result = mapper.updateWithVersion(oldItem) == 1;
+		afterUpdateWithVersion(oldItem);
+		return result;
+	}
+
+	private void beforeUpdatePartWithVersion({entityName} item, {entityName} oldItem) throws Exception
+	{
+{customBeforeUpdatePartWithVersionContent}
+	}
+
+
+
+{customContent}
+
+}

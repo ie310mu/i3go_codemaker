@@ -1,0 +1,148 @@
+using System;
+using System.Collections.Generic;
+using IE310.Core.DB;
+using IE310.Core.Utils;
+refrenceUsingList
+
+namespace namespaceName
+{
+	/// <summary>
+    /// DatabaseObject业务管理类
+    /// </summary>
+public static  partial class DatabaseObjectManager
+    {
+        /// <summary>
+        /// 根据ID获取实例
+        /// </summary>
+        public static DatabaseObjectEntity Get(int id)
+        {
+            return DatabaseObjectHelper.Get(id, null);
+        }
+
+        /// <summary>
+        /// 保存单个实例
+        /// </summary>
+        public static bool Save(DatabaseObjectEntity entity)
+        {
+            return DatabaseObjectHelper.Save(entity, null);
+        }
+
+        /// <summary>
+        /// 修改单个实例
+        /// </summary>
+        public static int Modify(int id, DatabaseObjectEntity entity)
+        {
+            return DatabaseObjectHelper.Modify(id, entity, null);
+        }
+
+        /// <summary>
+        /// 保存或修改单个实例
+        /// </summary>
+        public static bool SaveOrUpdate(DatabaseObjectEntity entity)
+        {
+            return DatabaseObjectHelper.SaveOrUpdate(entity, null);
+        }
+
+        /// <summary>
+        /// 删除单个实例
+        /// </summary>
+        public static int Delete(int id)
+        {
+            return DatabaseObjectHelper.Delete(id, null);
+        }
+
+        /// <summary>
+        /// 删除多个实例
+        /// </summary>
+        public static int Delete(DatabaseObjectParams paramObj)
+        {
+            return DatabaseObjectHelper.Delete(paramObj, null);
+        }
+
+
+        /// <summary>
+        /// 根据查询参数、分页信息、排序信息，或者实例集合
+        /// </summary>
+        public static DatabaseObjectEntity[] Get(DatabaseObjectParams param, I3PageInfo pageInfo, I3OrderParams order)
+        {
+            return DatabaseObjectHelper.Get(param, pageInfo, order, null);
+        }
+
+        /// <summary>
+        /// 查找第一个对象
+        /// </summary>
+        public static DatabaseObjectEntity Find(DatabaseObjectParams paramObj, I3OrderParams orderParams)
+        {
+            return DatabaseObjectHelper.Find(paramObj, orderParams, null);
+        }
+		
+
+        /// <summary>
+        /// GetDictionary
+        /// </summary>
+        public static Dictionary<int, DatabaseObjectEntity> GetDictionary(DatabaseObjectParams param, I3PageInfo pageInfo)
+        {
+            return DatabaseObjectHelper.GetDictionary(param, pageInfo, null);
+        }
+
+        /// <summary>
+        /// 获取数据条数
+        /// </summary>
+        public static int GetCount(DatabaseObjectParams param)
+        {
+            return DatabaseObjectHelper.GetCount(param);
+        }
+
+        /// <summary>
+        /// 检查对象是否存在
+        /// </summary>
+        public static bool IsExist(int _id)
+        {
+            return DatabaseObjectHelper.IsExist(_id, null);
+        }
+
+        /// <summary>
+        /// 提交对实例集合做出的修改，将使用事务+批量更新模式
+        /// (不以DatabaseObjectEntities作为参数，是要将未改变的实例排除)
+        /// </summary>
+        public static I3MsgInfo Submit(DatabaseObjectEntity[] adds, DatabaseObjectEntity[] modifies, List<string> deletes)
+        {
+            I3MsgInfo msg = null;
+
+            try
+            {
+                II3BatchUpdater updater = I3BatchUpdaterFactory.CreateBatchUpdater();
+                if (adds != null)
+                {
+                    foreach (DatabaseObjectEntity entity in adds)
+                    {
+                        DatabaseObjectHelper.PrepareSave(updater, entity);
+                    }
+                }
+                if (modifies != null)
+                {
+                    foreach (DatabaseObjectEntity entity in modifies)
+                    {
+                        DatabaseObjectHelper.PrepareUpdate(updater, entity);
+                    }
+                }
+                if (deletes != null)
+                {
+                    foreach (string id in deletes)
+                    {
+                        DatabaseObjectHelper.PrepareDelete(updater, id);
+                    }
+                }
+                return updater.BatchExecute(I3DBUtil.ConnectionString);
+            }
+            catch (Exception ex)
+            {
+                msg = new I3MsgInfo();
+                msg.State = false;
+                msg.Message = ex.Message;
+                msg.ExpMsg = ex;
+                return msg;
+            }
+        }
+    }
+	}

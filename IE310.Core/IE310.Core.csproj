@@ -1,0 +1,568 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6B9275D1-B7E5-4BBA-AA59-76729C9AF117}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IE310.Core</RootNamespace>
+    <AssemblyName>IE310.Core</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DebugMode2</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <DocumentationFile>
+    </DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\libs\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common">
+      <HintPath>..\libs\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms">
+      <HintPath>..\libs\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="mysql.data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\00.CoreLib\ThirdPart\mysql\v4\mysql.data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.Net20">
+      <HintPath>..\libs\Newtonsoft.Json.Net20.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\libs\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ComponentModel\I3BindingList.cs" />
+    <Compile Include="Components\I3FormatStrDlg.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\I3FormatStrDlg.designer.cs">
+      <DependentUpon>I3FormatStrDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Components\I3BubbleMessageDlg.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\I3BubbleMessageDlg.designer.cs">
+      <DependentUpon>I3BubbleMessageDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Components\I3GetStringDlg.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\I3GetStringDlg.designer.cs">
+      <DependentUpon>I3GetStringDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Components\I3Ini.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\I3Ini.designer.cs">
+      <DependentUpon>I3Ini.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Components\I3GetSymbolDlg.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\I3GetSymbolDlg.designer.cs">
+      <DependentUpon>I3GetSymbolDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Components\I3SqlConDlg.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\I3SqlConDlg.designer.cs">
+      <DependentUpon>I3SqlConDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Components\I3MessageDlg.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\I3MessageDlg.designer.cs">
+      <DependentUpon>I3MessageDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Components\I3ProgressDlg.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\I3ProgressDlg.designer.cs">
+      <DependentUpon>I3ProgressDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Components\I3Rar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\I3Rar.designer.cs">
+      <DependentUpon>I3Rar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Components\I3SharpZip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\I3SharpZip.designer.cs">
+      <DependentUpon>I3SharpZip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\I3AppSettingUtil.cs" />
+    <Compile Include="Configuration\I3ConfigurationHandler.cs" />
+    <Compile Include="Controls\I3PercentProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\I3ImageCanvas.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\PopupControl\I3AfterPopupEvent.cs" />
+    <Compile Include="Controls\PopupControl\I3BeforePopupEvent.cs" />
+    <Compile Include="Controls\I3Button.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\I3Button.designer.cs">
+      <DependentUpon>I3Button.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\I3DatePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\I3DatePanel.designer.cs">
+      <DependentUpon>I3DatePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\I3TreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\I3TreeView.designer.cs">
+      <DependentUpon>I3TreeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PopupControl\I3PopupComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\PopupControl\I3PopupComboBox.designer.cs">
+      <DependentUpon>I3PopupComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PopupControl\I3PopupControlHost.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\RibbonStyle\FormRibbonButtonTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\RibbonStyle\FormRibbonButtonTest.designer.cs">
+      <DependentUpon>FormRibbonButtonTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RibbonStyle\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RibbonStyle\RibbonMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\RibbonStyle\RibbonMenuButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\RibbonStyle\RibbonMenuRenderer2.cs" />
+    <Compile Include="DB\Batch\I3BatchUpdaterFactory.cs" />
+    <Compile Include="DB\DBTypeMapUtil.cs" />
+    <Compile Include="DB\DefaultValue.cs" />
+    <Compile Include="DB\I3DataObject.cs" />
+    <Compile Include="DB\DBHelper\I3DbConnectionOwnership.cs" />
+    <Compile Include="DB\DBHelper\I3DBHelper.cs" />
+    <Compile Include="DB\DBHelper\I3DBHelperParameterCache.cs" />
+    <Compile Include="DB\DBHelper\I3OracleHelper.cs" />
+    <Compile Include="DB\DBHelper\I3OraHelperParameterCache.cs" />
+    <Compile Include="DB\DBHelper\I3SqlDbHelper.cs" />
+    <Compile Include="DB\DBHelper\I3SqlDbHelperParameterCache .cs" />
+    <Compile Include="DB\DBHelper\I3MySqlDbHelperParameterCache .cs" />
+    <Compile Include="DB\DBHelper\I3MySqlDbHelper.cs" />
+    <Compile Include="DB\I3DataObjectEntities.cs" />
+    <Compile Include="DB\I3DBUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DB\Batch\II3BatchUpdater.cs" />
+    <Compile Include="DB\Batch\I3Oracle10gBatchCommand.cs" />
+    <Compile Include="DB\Batch\I3Oracle10gBatchUpdater.cs" />
+    <Compile Include="DB\Param\I3SqlComplexParam.cs" />
+    <Compile Include="DB\Param\I3SqlGroupParam.cs" />
+    <Compile Include="DB\Param\I3SqlItemParam.cs" />
+    <Compile Include="DB\Param\I3SqlParameters.cs" />
+    <Compile Include="DB\Batch\I3SqlServerBatchCommand.cs" />
+    <Compile Include="DB\Batch\I3SqlServerBatchUpdater.cs" />
+    <Compile Include="DB\Batch\I3MySqlBatchCommand.cs" />
+    <Compile Include="DB\Batch\I3MySqlBatchUpdater.cs" />
+    <Compile Include="DynamicCompile\I3DynamicClass.cs" />
+    <Compile Include="IO\Compression\CGZipUtil.cs" />
+    <Compile Include="JsonService\JsonMethodAttribute.cs" />
+    <Compile Include="JsonService\BaseJsonService.cs" />
+    <Compile Include="JsonService\JsonServiceAttribute..cs" />
+    <Compile Include="JsonService\JsonServiceException.cs" />
+    <Compile Include="JsonService\MethodParameterTypeAttribute.cs" />
+    <Compile Include="JsonService\MethodParameterTypeCreator.cs" />
+    <Compile Include="JsonService\ServiceResult.cs" />
+    <Compile Include="JsonService\ServiceResultState.cs" />
+    <Compile Include="LocalSetting\LocalSettingManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LocalSetting\LocalSettingManager.Designer.cs">
+      <DependentUpon>LocalSettingManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Progressing\IProgressReporter.cs" />
+    <Compile Include="Progressing\ProgressReporterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Progressing\ProgressReporterControl.designer.cs">
+      <DependentUpon>ProgressReporterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Progressing\ProgressReporterDialog.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Progressing\ProgressReporterDialog.designer.cs">
+      <DependentUpon>ProgressReporterDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Progressing\ProgressReporterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Progressing\ProgressReporterForm.designer.cs">
+      <DependentUpon>ProgressReporterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Progressing\SimpleProgressReporterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Progressing\SimpleProgressReporterControl.designer.cs">
+      <DependentUpon>SimpleProgressReporterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportPrint\Common\I3BorderInfo.cs" />
+    <Compile Include="ReportPrint\Common\I3Enums.cs" />
+    <Compile Include="ReportPrint\Common\I3MergeRange.cs" />
+    <Compile Include="ReportPrint\Event\I3CellItemEvent.cs" />
+    <Compile Include="ReportPrint\Item\I3PageHeader.cs" />
+    <Compile Include="ReportPrint\Item\I3ReportDatas.cs" />
+    <Compile Include="ReportPrint\Item\I3ReportImageCell.cs" />
+    <Compile Include="ReportPrint\Item\I3ReportSlashCell.cs" />
+    <Compile Include="ReportPrint\Print\I3PageSetting.cs" />
+    <Compile Include="ReportPrint\Print\I3PrintArea.cs" />
+    <Compile Include="ReportPrint\Print\I3PrintDocument.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReportPrint\Item\I3ReportCell.cs" />
+    <Compile Include="ReportPrint\Common\I3ReportCellStyle.cs" />
+    <Compile Include="ReportPrint\Item\I3ReportCol.cs" />
+    <Compile Include="ReportPrint\Item\I3ReportData.cs" />
+    <Compile Include="ReportPrint\Print\I3ReportPreviewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportPrint\Print\I3ReportPreviewer.Designer.cs">
+      <DependentUpon>I3ReportPreviewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportPrint\Print\I3ReportPreviewerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportPrint\Print\I3ReportPreviewerControl.Designer.cs">
+      <DependentUpon>I3ReportPreviewerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportPrint\Print\I3ReportPrintController.cs" />
+    <Compile Include="ReportPrint\Item\I3ReportRow.cs" />
+    <Compile Include="ReportPrint\Render\I3CellRendererBuilder.cs" />
+    <Compile Include="ReportPrint\Render\I3CellRendererAttribute.cs" />
+    <Compile Include="ReportPrint\Render\I3ReportCellRenderer.cs" />
+    <Compile Include="ReportPrint\Render\I3ReportImageCellRenderer.cs" />
+    <Compile Include="ReportPrint\Render\II3CellRenderer.cs" />
+    <Compile Include="ReportPrint\Render\I3ReportSlashCellRenderer.cs" />
+    <Compile Include="Utils\I3Base64ImageUtil.cs" />
+    <Compile Include="Utils\SpellCodeUtil.cs" />
+    <Compile Include="Win32\I3Win32PrintHelper.cs" />
+    <Compile Include="Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Skin\I3DefaultSkinChangedResponser.cs" />
+    <Compile Include="Skin\I3SkinChangedManager.cs" />
+    <Compile Include="Skin\I3SkinType.cs" />
+    <Compile Include="Skin\II3SkinChangedResponser.cs" />
+    <Compile Include="Skin\Responsers\I3TableResponser.cs" />
+    <Compile Include="Skin\Responsers\TreeViewResponser.cs" />
+    <Compile Include="UI\I3ExceptionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\I3ExceptionDialog.designer.cs">
+      <DependentUpon>I3ExceptionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\I3PropertyDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\I3PropertyDialog.designer.cs">
+      <DependentUpon>I3PropertyDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\I3ObjectUtil.cs" />
+    <Compile Include="DynamicProperty\I3PropertyInfo.cs" />
+    <Compile Include="DynamicProperty\I3PropertyDescriptor.cs" />
+    <Compile Include="DynamicProperty\I3TypeDescriptor.cs" />
+    <Compile Include="Json\II3JsonConverter.cs" />
+    <Compile Include="Json\I3JsonConvert.cs" />
+    <Compile Include="Json\I3NewtonJsonConverter.cs" />
+    <Compile Include="Utils\I3CurrencyManagerUtil.cs" />
+    <Compile Include="Utils\I3EnumUtil.cs" />
+    <Compile Include="Utils\I3DBControlUtil.cs" />
+    <Compile Include="IO\Compression\I3Cry.cs" />
+    <Compile Include="IO\Compression\I3GZip.cs" />
+    <Compile Include="IO\I3MD5.cs" />
+    <Compile Include="IO\Compression\I3SharpZip.cs" />
+    <Compile Include="IO\I3Stream.cs" />
+    <Compile Include="Utils\I3MsgInfo.cs" />
+    <Compile Include="UI\I3FormatStrForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\I3FormatStrForm.designer.cs">
+      <DependentUpon>I3FormatStrForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\I3BubbleMessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\I3BubbleMessageForm.designer.cs">
+      <DependentUpon>I3BubbleMessageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\I3GetStringForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\I3GetStringForm.designer.cs">
+      <DependentUpon>I3GetStringForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\I3GetSymbolForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\I3GetSymbolForm.designer.cs">
+      <DependentUpon>I3GetSymbolForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\I3SqlConForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\I3SqlConForm.designer.cs">
+      <DependentUpon>I3SqlConForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\I3SelectItemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\I3SelectItemForm.designer.cs">
+      <DependentUpon>I3SelectItemForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\I3MessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\I3MessageForm.designer.cs">
+      <DependentUpon>I3MessageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\I3ProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\I3ProgressForm.designer.cs">
+      <DependentUpon>I3ProgressForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\I3DateTimeUtil.cs" />
+    <Compile Include="Utils\I3MathUtil.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\I3StringUtil.cs" />
+    <Compile Include="UI\I3BubbleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\I3BubbleForm.designer.cs">
+      <DependentUpon>I3BubbleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\I3ComboBoxUtil.cs" />
+    <Compile Include="Utils\I3DirectoryUtil.cs" />
+    <Compile Include="Utils\I3FileUtil.cs" />
+    <Compile Include="Utils\I3PCUtil.cs" />
+    <Compile Include="Utils\I3FileTypeRegisterUtil.cs" />
+    <Compile Include="Utils\I3TreeViewUtil.cs" />
+    <Compile Include="Utils\I3UIUtil.cs" />
+    <Compile Include="Progressing\I3ProgressingEventArgs.cs" />
+    <Compile Include="Utils\I3LocalLogUtil.cs" />
+    <Compile Include="Utils\I3MessageHelper.cs" />
+    <Compile Include="Win32\AsciiChars.cs" />
+    <Compile Include="Win32\DLLVERSIONINFO.cs" />
+    <Compile Include="Win32\KeyEventFFlags.cs" />
+    <Compile Include="Win32\MSG.cs" />
+    <Compile Include="Win32\NativeMethods.cs" />
+    <Compile Include="Win32\NativeWindow.cs" />
+    <Compile Include="Win32\POINT.cs" />
+    <Compile Include="Win32\RECT.cs" />
+    <Compile Include="Win32\RectangleHelper.cs" />
+    <Compile Include="Win32\SIZE.cs" />
+    <Compile Include="Win32\TRACKMOUSEEVENT.cs" />
+    <Compile Include="Win32\WindowExtendedStyles.cs" />
+    <Compile Include="Win32\WindowMessages.cs" />
+    <Compile Include="Win32\WindowStyles.cs" />
+    <Compile Include="WinService\I3ServiceManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Controls\PopupControl\PopupControlHost.rar" />
+    <None Include="Resources\template.xls" />
+    <None Include="UI\Symbol.set">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Components\I3FormatStrDlg.resx">
+      <DependentUpon>I3FormatStrDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Components\I3Ini.resx">
+      <DependentUpon>I3Ini.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\I3DatePanel.resx">
+      <DependentUpon>I3DatePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PopupControl\I3PopupComboBox.resx">
+      <DependentUpon>I3PopupComboBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\RibbonStyle\FormRibbonButtonTest.resx">
+      <DependentUpon>FormRibbonButtonTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\RibbonStyle\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Progressing\ProgressReporterControl.resx">
+      <DependentUpon>ProgressReporterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Progressing\ProgressReporterForm.resx">
+      <DependentUpon>ProgressReporterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Progressing\SimpleProgressReporterControl.resx">
+      <DependentUpon>SimpleProgressReporterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportPrint\Print\I3ReportPreviewer.resx">
+      <DependentUpon>I3ReportPreviewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\I3ExceptionDialog.resx">
+      <DependentUpon>I3ExceptionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\I3BubbleForm.resx">
+      <DependentUpon>I3BubbleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\I3FormatStrForm.resx">
+      <DependentUpon>I3FormatStrForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\I3BubbleMessageForm.resx">
+      <DependentUpon>I3BubbleMessageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\I3GetStringForm.resx">
+      <DependentUpon>I3GetStringForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\I3GetSymbolForm.resx">
+      <DependentUpon>I3GetSymbolForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\I3SqlConForm.resx">
+      <DependentUpon>I3SqlConForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\I3SelectItemForm.resx">
+      <DependentUpon>I3SelectItemForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\I3MessageForm.resx">
+      <DependentUpon>I3MessageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\I3ProgressForm.resx">
+      <DependentUpon>I3ProgressForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\I3PropertyDialog.resx">
+      <DependentUpon>I3PropertyDialog.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Controls\RibbonStyle\Resources\add.png" />
+    <Content Include="Controls\RibbonStyle\Resources\add1.png" />
+    <Content Include="Controls\RibbonStyle\Resources\back.png" />
+    <Content Include="Controls\RibbonStyle\Resources\document-open.png" />
+    <Content Include="Controls\RibbonStyle\Resources\down.png" />
+    <Content Include="Controls\RibbonStyle\Resources\edit.png" />
+    <Content Include="Controls\RibbonStyle\Resources\filefind.png" />
+    <Content Include="Controls\RibbonStyle\Resources\finish.png" />
+    <Content Include="Controls\RibbonStyle\Resources\forward.png" />
+    <Content Include="Controls\RibbonStyle\Resources\gnome-session.png" />
+    <Content Include="Controls\RibbonStyle\Resources\gnome-settings-font.png" />
+    <Content Include="Controls\RibbonStyle\Resources\go-first.png" />
+    <Content Include="Controls\RibbonStyle\Resources\go-up.png" />
+    <Content Include="Controls\RibbonStyle\Resources\gtk-paste.png" />
+    <Content Include="Controls\RibbonStyle\Resources\gtk-remove.png" />
+    <Content Include="Controls\RibbonStyle\Resources\kedit.png" />
+    <Content Include="ReportPrint\说明.txt" />
+    <None Include="Resources\excel1.png" />
+    <None Include="Resources\excel.png" />
+    <None Include="Resources\DBTypeMapGo.txt" />
+    <None Include="Resources\打印32.png" />
+    <None Include="Resources\close32.png" />
+    <None Include="Resources\lastpage32.png" />
+    <None Include="Resources\next32.png" />
+    <None Include="Resources\prepage32.png" />
+    <None Include="Resources\firstpage32.png" />
+    <None Include="Resources\fullheight32.png" />
+    <None Include="Resources\fullwidth32.png" />
+    <None Include="Resources\fullpage32.png" />
+    <None Include="Resources\printer32.png" />
+    <None Include="Resources\printer48.png" />
+    <None Include="Resources\DBTypeMapJava.txt" />
+    <None Include="Resources\DBTypeMap.txt" />
+    <None Include="Resources\close.png" />
+    <None Include="Resources\lastpage.png" />
+    <None Include="Resources\next.png" />
+    <None Include="Resources\prepage.png" />
+    <None Include="Resources\firstpage.png" />
+    <None Include="Resources\fullheight.png" />
+    <None Include="Resources\fullwidth.png" />
+    <None Include="Resources\fullpage.png" />
+    <None Include="Resources\打印.png" />
+    <None Include="Resources\printer.png" />
+    <None Include="Resources\stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IE310.Table\IE310.Table.csproj">
+      <Project>{47a419fc-d4d6-475a-9607-9d283e884e4e}</Project>
+      <Name>IE310.Table</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

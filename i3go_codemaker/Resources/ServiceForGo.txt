@@ -1,0 +1,132 @@
+package service
+
+import (
+	"math"
+
+{importList}
+	{idIsStringDes1}"github.com/ie310mu/ie310go/common/guid"
+	"github.com/ie310mu/ie310go/common/json"
+	"github.com/ie310mu/ie310go/common/paging"
+	"github.com/ie310mu/ie310go/route"
+{customRefrence}
+)
+
+func init() {
+	route.Add(&{entityName}Service{})
+}
+
+//{entityName}Service 自动生成的代码
+//默认生成get、getList、add、update、delete5个方法
+//注意，以上方法使用非事务模式，如果需要使用事务，可在customContent中自行处理
+type {entityName}Service struct {
+	BaseLoginedService
+}
+
+//Get ..
+func (s {entityName}Service) {getMethodName}(args *route.ServiceArgs) *model.{entityName} {
+	id := {idColumnGetMethodForGoService}
+
+	mp := mapper.Get{entityName}Mapper("ro")
+	item := mp.Get(nil, id)
+
+{customAfterGetContent}
+
+	return item
+}
+
+//GetList ..
+func (s {entityName}Service) {getListMethodName}(args *route.ServiceArgs) *paging.PagingData {
+	//准备参数
+	calCount := args.GetBoolParamWithDefault("calCount", true)
+	page := args.GetIntParamWithDefault("page", 1)
+	rows := args.GetIntParamWithDefault("rows", 40)
+	orderStr := args.GetStringParamWithDefault("sort", "")
+	whereStr := ""
+	var sqlArgs = []interface{}{}
+
+{customBeforeGetListContent}
+
+	mp := mapper.Get{entityName}Mapper("ro")
+	items := mp.Gets(nil, page, rows, whereStr, orderStr, sqlArgs...)
+	var total = 0
+	if calCount {
+		total = mp.GetCount(nil, whereStr, sqlArgs...)
+	}
+	pageCountF := float64(total) / float64(rows)
+	pageCount := int(math.Ceil(pageCountF))
+
+{customAfterGetListContent}
+
+	r := &paging.PagingData{PageIndex: page, RowsInPage: rows, Pagecount: pageCount, Total: total, Rows: items}
+	return r
+}
+
+func (s {entityName}Service) getItem(args *route.ServiceArgs, createID bool) *model.{entityName} {
+	jsonStr := args.GetStringParamWithCheck("itemJson", false)
+	item := model.{entityName}{}
+	json.FromJSON(jsonStr, &item)
+	{idIsStringDes1}idIsString := {idIsStringValue}
+
+	{idIsStringDes1}if idIsString && createID && item.ID == "" {
+		{idIsStringDes1}item.ID = guid.Get()
+	{idIsStringDes1}}
+
+{customAfterGetItemContent}
+
+	return &item
+}
+
+//Add ..
+func (s {entityName}Service) {addMethodName}(args *route.ServiceArgs) {idColumnType} {
+	item := s.getItem(args, true)
+	mp := mapper.Get{entityName}Mapper("")
+	useTx := false
+
+{customBeforeAddContent}
+
+	if !useTx {
+		{lastIntIdVar}, count := mp.Insert(nil, item)
+		{idIsStringDes2}item.ID = lastIntID
+		if count == 0 {
+			panic("Insert未成功")
+		}
+	}
+
+{customAfterAddContent}
+
+	return item.ID
+}
+
+//Update ..
+func (s {entityName}Service) {updateMethodName}(args *route.ServiceArgs) {
+	item := s.getItem(args, false)
+	mp := mapper.Get{entityName}Mapper("")
+	useTx := false
+
+{customBeforeUpdateContent}
+
+	if !useTx {
+		mp.Update(nil, item)
+	}
+
+{customAfterUpdateContent}
+}
+
+//Delete ..
+func (s {entityName}Service) {deleteMethodName}(args *route.ServiceArgs) {
+	id := {idColumnGetMethodForGoService}
+	mp := mapper.Get{entityName}Mapper("")
+	useTx := false
+
+{customBeforeDeleteContent}
+
+	if !useTx {
+		mp.Del(nil, id)
+	}
+
+{customAfterDeleteContent}
+}
+
+{customContent}
+
+{goExportsSettings}

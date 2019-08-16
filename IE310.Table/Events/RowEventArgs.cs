@@ -1,0 +1,209 @@
+
+
+
+using System;
+
+using IE310.Table.Models;
+using IE310.Table.Row;
+using IE310.Table.Cell;
+
+
+namespace IE310.Table.Events
+{
+	#region Delegates
+
+	/// <summary>
+	/// Represents the methods that will handle the PropertyChanged, CellAdded and 
+	/// CellRemoved events of a Row
+	/// </summary>
+	public delegate void I3RowEventHandler(object sender, I3RowEventArgs e);
+
+	#endregion
+
+
+
+	#region RowEventArgs
+	
+	/// <summary>
+	/// Provides data for a Row's PropertyChanged, CellAdded 
+	/// and CellRemoved events
+	/// </summary>
+	public class I3RowEventArgs : EventArgs
+	{
+		#region Class Data
+
+		/// <summary>
+		/// The Row that Raised the event
+		/// </summary>
+		private I3Row source;
+
+		/// <summary>
+		/// The index of the Row
+		/// </summary>
+		private int rowIndex;
+
+		/// <summary>
+		/// The affected Cell
+		/// </summary>
+		private I3Cell cell;
+
+		/// <summary>
+		/// The start index of the affected Cell(s)
+		/// </summary>
+		private int cellToIndex;
+
+		/// <summary>
+		/// The end index of the affected Cell(s)
+		/// </summary>
+		private int cellFromIndex;
+
+		/// <summary>
+		/// The type of event
+		/// </summary>
+		private I3RowEventType eventType;
+
+		#endregion
+
+
+		#region Constructor
+
+		/// <summary>
+		/// Initializes a new instance of the RowEventArgs class with 
+		/// the specified Row source, row index, start index, end index 
+		/// and affected Cell
+		/// </summary>
+		/// <param name="source">The Row that originated the event</param>
+		/// <param name="eventType">The type of event</param>
+		public I3RowEventArgs(I3Row source, I3RowEventType eventType) : this(source, -1, null, -1, -1, eventType)
+		{
+			
+		}
+
+
+		/// <summary>
+		/// Initializes a new instance of the RowEventArgs class with 
+		/// the specified Row source, row index, start index, end index 
+		/// and affected Cell
+		/// </summary>
+		/// <param name="source">The Row that originated the event</param>
+		/// <param name="cell">The affected Cell</param>
+		/// <param name="cellFromIndex">The start index of the affected Cell(s)</param>
+		/// <param name="cellToIndex">The end index of the affected Cell(s)</param>
+		public I3RowEventArgs(I3Row source, I3Cell cell, int cellFromIndex, int cellToIndex) : this(source, -1, cell, cellFromIndex, cellToIndex, I3RowEventType.Unknown)
+		{
+			
+		}
+
+		
+		/// <summary>
+		/// Initializes a new instance of the RowEventArgs class with 
+		/// the specified Row source, row index, start index, end index 
+		/// and affected Cell
+		/// </summary>
+		/// <param name="source">The Row that originated the event</param>
+		/// <param name="rowIndex">The index of the Row</param>
+		/// <param name="cell">The affected Cell</param>
+		/// <param name="cellFromIndex">The start index of the affected Cell(s)</param>
+		/// <param name="cellToIndex">The end index of the affected Cell(s)</param>
+		/// <param name="eventType">The type of event</param>
+		public I3RowEventArgs(I3Row source, int rowIndex, I3Cell cell, int cellFromIndex, int cellToIndex, I3RowEventType eventType) : base()
+		{
+			this.source = source;
+			this.rowIndex = rowIndex;
+			this.cell = cell;
+			this.cellFromIndex = cellFromIndex;
+			this.cellToIndex = cellToIndex;
+			this.eventType = eventType;
+		}
+
+		#endregion
+
+
+		#region Properties
+
+		/// <summary>
+		/// Gets the Row that Raised the event
+		/// </summary>
+		public I3Row Row
+		{
+			get
+			{
+				return this.source;
+			}
+		}
+
+
+		/// <summary>
+		/// Gets the index of the Row
+		/// </summary>
+		public int Index
+		{
+			get
+			{
+				return this.rowIndex;
+			}
+		}
+
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="rowIndex"></param>
+		internal void SetRowIndex(int rowIndex)
+		{
+			this.rowIndex = rowIndex;
+		}
+
+
+		/// <summary>
+		/// Gets the affected Cell
+		/// </summary>
+		public I3Cell Cell
+		{
+			get
+			{
+				return this.cell;
+			}
+		}
+
+
+		/// <summary>
+		/// Gets the start index of the affected Cell(s)
+		/// </summary>
+		public int CellFromIndex
+		{
+			get
+			{
+				return this.cellFromIndex;
+			}
+		}
+
+
+		/// <summary>
+		/// Gets the end index of the affected Cell(s)
+		/// </summary>
+		public int CellToIndex
+		{
+			get
+			{
+				return this.cellToIndex;
+			}
+		}
+
+
+		/// <summary>
+		/// Gets the type of event
+		/// </summary>
+		public I3RowEventType EventType
+		{
+			get
+			{
+				return this.eventType;
+			}
+		}
+
+		#endregion
+	}
+
+	#endregion
+}

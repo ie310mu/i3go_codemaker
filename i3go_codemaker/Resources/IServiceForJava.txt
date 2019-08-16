@@ -1,0 +1,127 @@
+package {packageName};
+
+import java.lang.reflect.InvocationTargetException;
+{importList}
+
+public interface I{entityName}Service
+{
+	/**
+	 * 返回对象或null
+	 */
+	public {entityName} get({idColDataType} id) throws Exception;
+	
+	/**
+	 * 返回对象或null  注意，需要数据表中有code字段才能正确调用
+	 */
+	public {entityName} getByCode(String code) throws Exception;
+	
+	/**
+	 * 成功返回1，失败返回0
+	 */
+	public boolean delete({idColDataType} id) throws Exception;
+
+	
+	/**
+	 * 
+	 */
+	public boolean deleteByParam({entityName}Param param) throws Exception;
+	
+	/**
+	 * order:不带order by的排序字符串
+	 */
+	public {entityName}[] getTopN(int n, String order) throws Exception;
+	
+	/**
+	 * 
+	 */
+	public int getCount() throws Exception;
+	
+	/**
+	 * pageIndex:页码，从1开始     rowsInPage:每页的大小
+	 * offset:起始位置，从0计算，第n页就是 (n-1)*pageSize
+	 * order:不带order by的排序字符串
+	 */
+	public PagingData getPage(int pageIndex, int rowsInPage, String order) throws Exception;
+	
+	/**
+	 * 尽量使用getCountByParam
+	 * cause:不带where关键字的查询语句，不能带参数，可以为空（为避免sql注入，应尽量少从前端条件组合）
+	 */
+	public int getCountByCause(String cause) throws Exception;
+	
+	/**
+	 * 尽量使用getPageByParam
+	 * pageIndex:页码，从1开始     rowsInPage:每页的大小
+	 * offset:起始位置，从0计算，第n页就是 (n-1)*pageSize
+	 * order:不带order by的排序字符串
+	 * cause:不带where关键字的查询语句，不能带参数，可以为空（为避免sql注入，应尽量少从前端条件组合）
+	 */
+	public PagingData getPageByCause(int pageIndex, int rowsInPage, String order, String cause) throws Exception;
+	
+	/**
+	 * order:不带order by的排序字符串
+	 * cause:不带where关键字的查询语句，不能带参数，可以为空（为避免sql注入，应尽量少从前端条件组合）
+	 */
+	public {entityName} findFirst(String order, String cause) throws Exception;
+	
+	/**
+	 * 
+	 */
+	public boolean isExists({idColDataType} id) throws Exception;
+	
+	/**
+	 * 
+	 */
+	public int getCountByParam({entityName}Param param) throws Exception;
+	
+	/**
+	 * 
+	 */
+	public PagingData getPageByParam({entityName}Param param) throws Exception;
+
+	
+	/**
+	 * 
+	 */
+	public {entityName} findByParam({entityName}Param param) throws Exception;
+	
+	/**
+	 * 根据参数更新数据，返回更新的数据条数 
+	 */
+	public int updateByParam({entityName}Param param) throws Exception;
+	
+	/**
+	 * 成功返回1，失败抛出异常
+	 * 如果需要额外处理，实现beforeSave、afterSave方法即可
+	 */
+	public boolean save({entityName} item)  throws Exception;
+	
+	/**
+	 * 成功返回1(即使数据没有修改)，失败返回0   注：id不能被修改
+	 * 如果需要额外处理，实现beforeUpdate、afterUpdate方法即可
+	 * *************注意，此方法相信调用者所传递过来的item包含了所有字段，如果不是这种情况，请使用updatePart方法，并实现beforeUpdatePart方法做处理
+	 */
+	public boolean update({entityName} item)  throws Exception;
+	
+	/**
+	 * 成功返回1(即使数据没有修改)，失败返回0   注：id不能被修改
+	 * 如果需要额外处理，实现beforeUpdatePart、afterUpdate方法即可
+	 * *************注意，此方法相信调用者所传递过来的item只包含了关键字段，必须要实现beforeUpdatePart方法做处理，以避免未被编辑到的字段的值丢失
+	 */
+	public boolean updatePart({entityName} item)  throws Exception;
+	
+	/**
+	 * 成功返回1(即使数据没有修改)，失败返回0   注：id不能被修改  注意：需要数据表中有version(int)字段才能正确调用
+	 */
+	public boolean updateWithVersion({entityName} item)  throws Exception;
+	
+	/**
+	 * 成功返回1(即使数据没有修改)，失败返回0   注：id不能被修改  注意：需要数据表中有version(int)字段才能正确调用
+	 */
+	public boolean updatePartWithVersion({entityName} item) throws Exception;
+
+
+
+{customContent}
+
+}

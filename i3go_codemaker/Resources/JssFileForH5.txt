@@ -1,0 +1,38 @@
+
+function jssAdd{entityName}(item, invokeServiceSuccess) {
+    var itemJson = JSON.stringify(item);
+    var data = {};
+    data.itemJson = encodeURIComponent(itemJson);
+
+    beginInvokeJsonService("/{tableNameEx2}Service{suffixJss}", "add", data, invokeServiceSuccess, invokeServiceError);
+}
+
+
+function jssUpdate{entityName}(item, invokeServiceSuccess) {
+    var itemJson = JSON.stringify(item);
+    var data = {};
+    data.itemJson = encodeURIComponent(itemJson);
+
+    beginInvokeJsonService("/{tableNameEx2}Service{suffixJss}", "update", data, invokeServiceSuccess, invokeServiceError);
+}
+
+
+function jssDel{entityName}(id, invokeServiceSuccess) {
+    var data = {};
+    data.id = encodeURIComponent(id);
+    beginInvokeJsonService("/{tableNameEx2}Service{suffixJss}", "delete", data, invokeServiceSuccess, invokeServiceError);
+}
+
+
+function jssGet{entityName}(id, invokeServiceSuccess) {
+    var data = {};
+    data.id = encodeURIComponent(id);
+    beginInvokeJsonService("/{tableNameEx2}Service{suffixJss}", "get", data, invokeServiceSuccess, invokeServiceError);
+}
+
+
+
+
+{customContent}
+
+

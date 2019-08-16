@@ -1,0 +1,17 @@
+package {packageName};
+
+import java.util.Map;
+{importList}
+
+public class {entityName}SqlProvider extends BaseSqlProvider
+{
+	public {entityName}SqlProvider()
+	{
+		this.tableName = "{tableName}";
+	}
+
+
+
+{customContent}
+
+}
