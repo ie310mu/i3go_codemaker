@@ -210,5 +210,10 @@ func (m {entityName}Mapper) Updatess(tx *sqlx.Tx, sqlStr string, args ...interfa
 	return count
 }
 
+//Check{entityName}OrderStr 检查orderSql是否合法（只能包含字段、asc、desc）
+func Check{entityName}OrderStr(orderStr string) {
+	db.CheckOrderStr(model.{entityName}Fields, orderStr)
+}
+
 {methodWithDynamicField}
 {customContent}

@@ -41,6 +41,7 @@ func (s {entityName}Service) {getListMethodName}(args *route.ServiceArgs) *pagin
 	page := args.GetIntParamWithDefault("page", 1)
 	rows := args.GetIntParamWithDefault("rows", 40)
 	orderStr := args.GetStringParamWithDefault("sort", "")
+	mapper.Check{entityName}OrderStr(orderStr)
 	whereStr := ""
 	var sqlArgs = []interface{}{}
 

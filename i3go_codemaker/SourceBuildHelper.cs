@@ -1279,9 +1279,18 @@ namespace IE310.Tools.CodeMaker
             sb.AppendLine("type " + tableInfo.TableNameEx + " struct {");
 
             #region 添加字段
+            StringBuilder fieldsSb = new StringBuilder();
+            fieldsSb.Append("var " + tableInfo.TableNameEx + "Fields = map[string]int{");
+            int fieldIndex = -1;
             foreach (I3ColumnInfo columnInfo in tableInfo)
             {
                 string fieldName = columnInfo.PropertyName;
+                fieldIndex++;
+                fieldsSb.Append("\"").Append(fieldName.ToLower()).Append("\": ").Append(fieldIndex);
+                if(fieldIndex != tableInfo.Count - 1)
+                {
+                    fieldsSb.Append(", ");
+                }
                 string fieldName2 = fieldName.Substring(0, 1).ToUpper() + fieldName.Substring(1);
                 if (fieldName2.StartsWith("id") || fieldName2.StartsWith("Id") || fieldName2.EndsWith("id") || fieldName2.EndsWith("Id"))
                 {
@@ -1300,19 +1309,19 @@ namespace IE310.Tools.CodeMaker
                     sb.AppendLine(field);
                 }
             }
+            fieldsSb.Append("}");
             #endregion
 
             #region customContent
             sb.AppendLine();
-            sb.AppendLine();
-            sb.AppendLine();
             sb.AppendLine("{customContent}");
-            sb.AppendLine();
             sb.AppendLine();
             #endregion
 
             //保存
             sb.AppendLine("}");
+            sb.AppendLine();
+            sb.AppendLine(fieldsSb.ToString());
             string fileName = Path.Combine(sourcePath, tableInfo.TableNameEx + ".go");
             SaveCodeToFileWithCustomContent(fileName, sb.ToString(), "//", "");
 
